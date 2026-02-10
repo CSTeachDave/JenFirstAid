@@ -1,0 +1,1306 @@
+<!doctype html>
+<html lang="en" class="h-full">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>First Aid at Work — SCQF Level 6</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="/_sdk/element_sdk.js"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,600;0,700&amp;family=Playfair+Display:wght@700;800;900&amp;display=swap" rel="stylesheet">
+  <style>
+    body {
+      box-sizing: border-box;
+      font-family: 'DM Sans', sans-serif;
+      margin: 0;
+      padding: 0;
+    }
+    html, body { height: 100%; width: 100%; }
+
+    :root {
+      --bg-color: #ffffff;
+      --surface-color: #fffef0;
+      --text-color: #000000;
+      --primary-color: #e60000;
+      --secondary-color: #ffcc00;
+    }
+
+    .font-display { font-family: 'Playfair Display', serif; }
+
+    .hero-gradient {
+      background: linear-gradient(135deg, var(--bg-color) 0%, #fffef0 40%, var(--bg-color) 100%);
+    }
+
+    .unit-card {
+      background: var(--surface-color);
+      border: 2px solid var(--secondary-color);
+      transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+    }
+    .unit-card:hover {
+      border-color: var(--primary-color);
+      transform: translateY(-4px);
+      box-shadow: 0 12px 40px rgba(0,0,0,0.12);
+    }
+
+    .nav-link {
+      transition: all 0.3s ease;
+      position: relative;
+    }
+    .nav-link::after {
+      content: '';
+      position: absolute;
+      bottom: -2px;
+      left: 0;
+      width: 0;
+      height: 3px;
+      background: var(--primary-color);
+      transition: width 0.3s ease;
+    }
+    .nav-link:hover::after, .nav-link.active::after {
+      width: 100%;
+    }
+
+    .section-divider {
+      height: 4px;
+      background: linear-gradient(90deg, transparent, #e60000, #ffcc00, transparent);
+    }
+
+    .info-card {
+      background: rgba(255, 204, 0, 0.08);
+      border-left: 4px solid var(--secondary-color);
+    }
+
+    .warning-card {
+      background: rgba(230, 0, 0, 0.08);
+      border-left: 4px solid var(--primary-color);
+    }
+
+    .quiz-option {
+      background: var(--surface-color);
+      border: 2px solid var(--secondary-color);
+      transition: all 0.3s ease;
+      cursor: pointer;
+    }
+    .quiz-option:hover:not(.selected) {
+      border-color: var(--primary-color);
+      background: rgba(255, 204, 0, 0.1);
+    }
+    .quiz-option.correct {
+      border-color: #22c55e;
+      background: rgba(34, 197, 94, 0.15);
+    }
+    .quiz-option.incorrect {
+      border-color: var(--primary-color);
+      background: rgba(230, 0, 0, 0.1);
+    }
+    .quiz-option.selected { pointer-events: none; }
+
+    .step-number {
+      width: 36px;
+      height: 36px;
+      min-width: 36px;
+      border-radius: 50%;
+      background: var(--primary-color);
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 0.9rem;
+    }
+
+    .severity-badge {
+      display: inline-block;
+      padding: 4px 14px;
+      border-radius: 20px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+    .severity-low { background: rgba(34, 197, 94, 0.2); color: #059669; }
+    .severity-medium { background: rgba(255, 204, 0, 0.3); color: #d97706; }
+    .severity-high { background: rgba(230, 0, 0, 0.2); color: #991b1b; }
+
+    .pulse-dot {
+      animation: pulse 2s infinite;
+    }
+    @keyframes pulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.6; transform: scale(1.1); }
+    }
+
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(24px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .animate-in {
+      animation: fadeInUp 0.6s ease forwards;
+    }
+    .animate-delay-1 { animation-delay: 0.1s; opacity: 0; }
+    .animate-delay-2 { animation-delay: 0.2s; opacity: 0; }
+    .animate-delay-3 { animation-delay: 0.3s; opacity: 0; }
+    .animate-delay-4 { animation-delay: 0.4s; opacity: 0; }
+
+    .video-container {
+      position: relative;
+      padding-bottom: 56.25%;
+      height: 0;
+      overflow: hidden;
+      border-radius: 12px;
+      border: 2px solid var(--secondary-color);
+    }
+    .video-container iframe {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      border: none;
+    }
+
+    .progress-bar {
+      height: 4px;
+      background: rgba(255, 204, 0, 0.2);
+      border-radius: 2px;
+      overflow: hidden;
+    }
+    .progress-fill {
+      height: 100%;
+      background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+      transition: width 0.5s ease;
+      border-radius: 2px;
+    }
+
+    .score-circle {
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+      border: 4px solid var(--primary-color);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .back-to-top {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      background: var(--primary-color);
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      opacity: 0;
+      transition: all 0.3s ease;
+      z-index: 50;
+      border: none;
+    }
+    .back-to-top.visible { opacity: 1; }
+    .back-to-top:hover { background: #cc0000; transform: scale(1.1); }
+
+    .tab-btn {
+      padding: 8px 20px;
+      border-radius: 8px;
+      font-weight: 600;
+      font-size: 0.85rem;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      border: 2px solid var(--secondary-color);
+      background: transparent;
+      color: var(--text-color);
+    }
+    .tab-btn:hover { background: rgba(255, 204, 0, 0.1); }
+    .tab-btn.active {
+      background: var(--primary-color);
+      color: white;
+      border-color: var(--primary-color);
+    }
+
+    * { scrollbar-width: thin; scrollbar-color: #ffcc00 #ffffff; }
+    *::-webkit-scrollbar { width: 6px; }
+    *::-webkit-scrollbar-track { background: #ffffff; }
+    *::-webkit-scrollbar-thumb { background: #ffcc00; border-radius: 3px; }
+  </style>
+  <style>@view-transition { navigation: auto; }</style>
+  <script src="/_sdk/data_sdk.js" type="text/javascript"></script>
+ </head>
+ <body class="h-full" style="background: var(--bg-color); color: var(--text-color);">
+  <div id="app-wrapper" class="w-full h-full overflow-auto"><!-- STICKY NAVIGATION -->
+   <nav id="main-nav" style="background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(12px); border-bottom: 3px solid var(--secondary-color);" class="sticky top-0 z-40 w-full">
+    <div class="max-w-6xl mx-auto px-4 py-3 flex items-center justify-between flex-wrap gap-2">
+     <div class="flex items-center gap-3">
+      <div class="pulse-dot" style="width:10px;height:10px;border-radius:50%;background:var(--primary-color);"></div><span class="font-bold text-sm tracking-wide" style="color: var(--primary-color);">FIRST AID</span>
+     </div>
+     <div class="flex items-center gap-4 flex-wrap"><a href="#wounds" class="nav-link text-sm" style="color: var(--text-color); text-decoration: none;">Wounds</a> <a href="#seizures" class="nav-link text-sm" style="color: var(--text-color); text-decoration: none;">Seizures</a> <a href="#burns" class="nav-link text-sm" style="color: var(--text-color); text-decoration: none;">Burns</a> <a href="#foreign" class="nav-link text-sm" style="color: var(--text-color); text-decoration: none;">Foreign Objects</a> <a href="#final-score" class="nav-link text-sm font-semibold" style="color: var(--primary-color); text-decoration: none;">Score</a>
+     </div>
+    </div>
+   </nav><!-- HERO SECTION -->
+   <header class="hero-gradient w-full relative overflow-hidden">
+    <div class="absolute inset-0" style="background: radial-gradient(ellipse at 20% 50%, rgba(230,0,0,0.04) 0%, transparent 60%), radial-gradient(ellipse at 80% 20%, rgba(255,204,0,0.06) 0%, transparent 50%);"></div>
+    <div class="max-w-6xl mx-auto px-6 py-16 md:py-24 relative z-10">
+     <div class="animate-in"><span class="severity-badge severity-high mb-4 inline-block" style="font-size:0.7rem;">SCQF LEVEL 6</span>
+      <h1 id="hero-title" class="font-display text-4xl md:text-6xl font-black mb-4 leading-tight" style="color: var(--text-color);">First Aid at Work</h1>
+      <p id="hero-subtitle" class="text-lg md:text-xl mb-6" style="color: var(--primary-color); font-weight: 600;">SCQF Level 6 — One Day Course</p>
+      <p id="hero-instructor" class="text-sm mb-8" style="color: var(--secondary-color);"></p>
+     </div>
+     <div class="flex flex-wrap gap-3 animate-in animate-delay-2">
+      <div class="flex items-center gap-2 px-4 py-2 rounded-lg" style="background: var(--secondary-color); border: 2px solid var(--primary-color); color: var(--text-color);"><span>⏱️</span><span class="text-sm font-medium">45 Minutes</span>
+      </div>
+      <div class="flex items-center gap-2 px-4 py-2 rounded-lg" style="background: var(--secondary-color); border: 2px solid var(--primary-color); color: var(--text-color);"><span>📋</span><span class="text-sm font-medium">4 Units</span>
+      </div>
+      <div class="flex items-center gap-2 px-4 py-2 rounded-lg" style="background: var(--secondary-color); border: 2px solid var(--primary-color); color: var(--text-color);"><span>🎯</span><span class="text-sm font-medium">Interactive Scenarios</span>
+      </div>
+     </div><!-- Unit overview cards -->
+     <div class="grid grid-cols-2 md:grid-cols-4 gap-3 mt-10"><a href="#wounds" class="unit-card rounded-xl p-4 text-center no-underline animate-in animate-delay-1" style="text-decoration:none; color: var(--text-color);">
+       <div class="text-3xl mb-2">
+        🩸
+       </div>
+       <div class="font-bold text-sm">
+        Wounds &amp; Bleeding
+       </div></a> <a href="#seizures" class="unit-card rounded-xl p-4 text-center no-underline animate-in animate-delay-2" style="text-decoration:none; color: var(--text-color);">
+       <div class="text-3xl mb-2">
+        ⚡
+       </div>
+       <div class="font-bold text-sm">
+        Seizures
+       </div></a> <a href="#burns" class="unit-card rounded-xl p-4 text-center no-underline animate-in animate-delay-3" style="text-decoration:none; color: var(--text-color);">
+       <div class="text-3xl mb-2">
+        🔥
+       </div>
+       <div class="font-bold text-sm">
+        Burns &amp; Scalds
+       </div></a> <a href="#foreign" class="unit-card rounded-xl p-4 text-center no-underline animate-in animate-delay-4" style="text-decoration:none; color: var(--text-color);">
+       <div class="text-3xl mb-2">
+        🔍
+       </div>
+       <div class="font-bold text-sm">
+        Foreign Objects
+       </div></a>
+     </div>
+    </div>
+   </header>
+   <main class="max-w-6xl mx-auto px-4 md:px-6 pb-20"><!-- ============================== --> <!-- UNIT 1: WOUNDS AND BLEEDING     --> <!-- ============================== -->
+    <section id="wounds" class="pt-16">
+     <div class="section-divider mb-10"></div>
+     <div class="flex items-center gap-4 mb-8">
+      <div class="text-5xl">
+       🩸
+      </div>
+      <div><span class="severity-badge severity-high mb-1">Unit 1</span>
+       <h2 class="font-display text-3xl md:text-4xl font-black" style="color: var(--text-color);">Wounds &amp; Bleeding</h2>
+      </div>
+     </div><!-- Learning Objectives -->
+     <div class="info-card rounded-xl p-5 mb-8">
+      <h3 class="font-bold text-lg mb-3" style="color: var(--primary-color);">🎯 Learning Objectives</h3>
+      <ul class="space-y-2 text-sm" style="color: var(--text-color);">
+       <li>✅ Identify the severity of external bleeding</li>
+       <li>✅ Identify how to administer first aid for small cuts, grazes, and bruises</li>
+       <li>✅ Demonstrate how to control external bleeding</li>
+      </ul>
+     </div><!-- Severity Identification -->
+     <h3 class="font-display text-2xl font-bold mb-5" style="color: var(--text-color);">Identifying Severity of External Bleeding</h3>
+     <p class="mb-6 text-sm leading-relaxed" style="color: var(--text-color);">The severity of bleeding depends on the type of blood vessel damaged. Recognising the difference helps you decide how urgently to act and what treatment to provide.</p>
+     <div class="grid md:grid-cols-3 gap-4 mb-8"><!-- Capillary -->
+      <div class="unit-card rounded-xl p-5"><span class="severity-badge severity-low mb-3">Low Severity</span>
+       <h4 class="font-bold text-lg mt-3 mb-2">Capillary Bleeding</h4>
+       <p class="text-sm mb-3" style="color: var(--text-color);">Slow oozing from small blood vessels near the skin surface. Seen in minor cuts, grazes, and abrasions.</p>
+       <div class="text-sm space-y-1" style="color: var(--text-color);">
+        <div>
+         🔹 Blood oozes slowly
+        </div>
+        <div>
+         🔹 Usually stops on its own
+        </div>
+        <div>
+         🔹 Bright red in colour
+        </div>
+       </div>
+      </div><!-- Venous -->
+      <div class="unit-card rounded-xl p-5"><span class="severity-badge severity-medium mb-3">Medium Severity</span>
+       <h4 class="font-bold text-lg mt-3 mb-2">Venous Bleeding</h4>
+       <p class="text-sm mb-3" style="color: var(--text-color);">Steady flow from damaged veins. Blood is darker in colour as it carries less oxygen.</p>
+       <div class="text-sm space-y-1" style="color: var(--text-color);">
+        <div>
+         🔹 Steady, continuous flow
+        </div>
+        <div>
+         🔹 Dark red colour
+        </div>
+        <div>
+         🔹 Can be serious if not controlled
+        </div>
+       </div>
+      </div><!-- Arterial -->
+      <div class="unit-card rounded-xl p-5"><span class="severity-badge severity-high mb-3">High Severity</span>
+       <h4 class="font-bold text-lg mt-3 mb-2">Arterial Bleeding</h4>
+       <p class="text-sm mb-3" style="color: var(--text-color);">Spurting blood from arteries — the most dangerous type. Blood is bright red and pulses with the heartbeat.</p>
+       <div class="text-sm space-y-1" style="color: var(--text-color);">
+        <div>
+         🔹 Spurts in rhythm with heartbeat
+        </div>
+        <div>
+         🔹 Bright red and oxygen-rich
+        </div>
+        <div>
+         🔹 Life-threatening — act immediately
+        </div>
+       </div>
+      </div>
+     </div><!-- Types of Wounds -->
+     <h3 class="font-display text-2xl font-bold mb-5" style="color: var(--text-color);">Types of Wounds</h3>
+     <p class="mb-8 text-sm leading-relaxed" style="color: var(--text-color);">Different types of wounds have different characteristics and require different first aid approaches. Understanding the wound type helps you assess severity and provide appropriate treatment.</p>
+     <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mb-10"><!-- Incision -->
+      <div class="unit-card rounded-xl p-6">
+       <h4 class="font-bold text-lg mb-3" style="color: var(--primary-color);">Incision</h4><img src="incision.jpg" alt="Incision wound example" loading="lazy" class="w-full h-64 mb-4 rounded-lg object-cover" style="background: #f5f5f5;" onerror="console.error('Image failed to load:', this.src); this.style.background='#f5f5f5'; this.alt='Image unavailable';">
+       <p class="text-sm" style="color: var(--text-color);">A clean, straight cut made by a sharp object (knife, glass, razor blade).</p>
+       <div class="text-xs mt-3 space-y-1" style="color: var(--text-color);">
+        <div>
+         ✓ Clean edges
+        </div>
+        <div>
+         ✓ Minimal tissue damage
+        </div>
+        <div>
+         ✓ Bleeds readily but controlled
+        </div>
+       </div>
+      </div><!-- Laceration -->
+      <div class="unit-card rounded-xl p-6">
+       <h4 class="font-bold text-lg mb-3" style="color: var(--primary-color);">Laceration</h4><img src="laceration.jpg" alt="Laceration wound example" loading="lazy" class="w-full h-64 mb-4 rounded-lg object-cover" style="background: #f5f5f5;" onerror="console.error('Image failed to load:', this.src); this.style.background='#f5f5f5'; this.alt='Image unavailable';">
+       <p class="text-sm" style="color: var(--text-color);">A jagged, irregular tear caused by blunt force or tearing (fall, impact, machinery).</p>
+       <div class="text-xs mt-3 space-y-1" style="color: var(--text-color);">
+        <div>
+         ✓ Jagged, irregular edges
+        </div>
+        <div>
+         ✓ More tissue damage
+        </div>
+        <div>
+         ✓ Higher infection risk
+        </div>
+       </div>
+      </div><!-- Abrasion -->
+      <div class="unit-card rounded-xl p-6">
+       <h4 class="font-bold text-lg mb-3" style="color: var(--primary-color);">Abrasion</h4><img src="abrasion.jpg" alt="Abrasion wound example" loading="lazy" class="w-full h-64 mb-4 rounded-lg object-cover" style="background: #f5f5f5;" onerror="console.error('Image failed to load:', this.src); this.style.background='#f5f5f5'; this.alt='Image unavailable';">
+       <p class="text-sm" style="color: var(--text-color);">A scrape or graze caused by friction (fall on concrete, road rash, friction burn).</p>
+       <div class="text-xs mt-3 space-y-1" style="color: var(--text-color);">
+        <div>
+         ✓ Shallow, surface level
+        </div>
+        <div>
+         ✓ Minimal bleeding (oozing)
+        </div>
+        <div>
+         ✓ Often dirty — needs cleaning
+        </div>
+       </div>
+      </div><!-- Contusion -->
+      <div class="unit-card rounded-xl p-6">
+       <h4 class="font-bold text-lg mb-3" style="color: var(--primary-color);">Contusion (Bruise)</h4><img src="contusion.jpg" alt="Contusion wound example" loading="lazy" class="w-full h-64 mb-4 rounded-lg object-cover" style="background: #f5f5f5;" onerror="console.error('Image failed to load:', this.src); this.style.background='#f5f5f5'; this.alt='Image unavailable';">
+       <p class="text-sm" style="color: var(--text-color);">Internal bleeding under intact skin from blunt force impact (blow, fall).</p>
+       <div class="text-xs mt-3 space-y-1" style="color: var(--text-color);">
+        <div>
+         ✓ Skin not broken
+        </div>
+        <div>
+         ✓ Discoloration (purple, blue)
+        </div>
+        <div>
+         ✓ Swelling and tenderness
+        </div>
+       </div>
+      </div><!-- Puncture -->
+      <div class="unit-card rounded-xl p-6">
+       <h4 class="font-bold text-lg mb-3" style="color: var(--primary-color);">Puncture Wound</h4><img src="puncture.jpg" alt="Puncture wound example" loading="lazy" class="w-full h-64 mb-4 rounded-lg object-cover" style="background: #f5f5f5;" onerror="console.error('Image failed to load:', this.src); this.style.background='#f5f5f5'; this.alt='Image unavailable';">
+       <p class="text-sm" style="color: var(--text-color);">A small hole made by a sharp object (nail, needle, thorn) penetrating deep.</p>
+       <div class="text-xs mt-3 space-y-1" style="color: var(--text-color);">
+        <div>
+         ✓ Small external opening
+        </div>
+        <div>
+         ✓ Deep penetration possible
+        </div>
+        <div>
+         ✓ High infection/tetanus risk
+        </div>
+       </div>
+      </div><!-- Velocity Wound -->
+      <div class="unit-card rounded-xl p-6">
+       <h4 class="font-bold text-lg mb-3" style="color: var(--primary-color);">Velocity Wound</h4><img src="velocity.jpg" alt="Velocity wound example" loading="lazy" class="w-full h-64 mb-4 rounded-lg object-cover" style="background: #f5f5f5;" onerror="console.error('Image failed to load:', this.src); this.style.background='#f5f5f5'; this.alt='Image unavailable';">
+       <p class="text-sm" style="color: var(--text-color);">Severe tissue damage from high-speed impact (bullet, blast, machinery crush).</p>
+       <div class="text-xs mt-3 space-y-1" style="color: var(--text-color);">
+        <div>
+         ✓ Extensive tissue damage
+        </div>
+        <div>
+         ✓ Severe bleeding
+        </div>
+        <div>
+         ✓ LIFE-THREATENING — call 999
+        </div>
+       </div>
+      </div>
+     </div><!-- Treating Minor Wounds -->
+     <h3 class="font-display text-2xl font-bold mb-5" style="color: var(--text-color);">Treating Small Cuts, Grazes &amp; Bruises</h3>
+     <div class="space-y-4 mb-8">
+      <div class="flex gap-4 items-start">
+       <div class="step-number">
+        1
+       </div>
+       <div>
+        <h4 class="font-bold mb-1">Clean the Wound</h4>
+        <p class="text-sm" style="color: var(--text-color);">Put on disposable glove. Expose and examine the wound. Apply direct pressure with your fingers or palm of hand.</p>
+       </div>
+      </div>
+      <div class="flex gap-4 items-start">
+       <div class="step-number">
+        2
+       </div>
+       <div>
+        <h4 class="font-bold mb-1">Apply a Sterile Dressing</h4>
+        <p class="text-sm" style="color: var(--text-color);">Cover the wound with an appropriately sized sterile adhesive dressing (plaster) or sterile gauze pad. This protects against infection.</p>
+       </div>
+      </div>
+      <div class="flex gap-4 items-start">
+       <div class="step-number">
+        3
+       </div>
+       <div>
+        <h4 class="font-bold mb-1">For Bruises</h4>
+        <p class="text-sm" style="color: var(--text-color);">Apply a cold compress or ice pack wrapped in a cloth for up to 20 minutes. This reduces swelling and pain. Elevate the bruised area if possible. Do not apply ice directly to the skin.</p>
+       </div>
+      </div>
+     </div><!-- Quiz: Wounds -->
+     <div class="unit-card rounded-xl p-6 mb-6" id="quiz-wounds">
+      <h3 class="font-display text-xl font-bold mb-2" style="color: var(--primary-color);">🧠 Scenario Quiz — Wounds &amp; Bleeding</h3>
+      <p class="text-sm mb-6" style="color: var(--text-color);">Test your knowledge with these scenarios. Select the best answer for each question.</p>
+      <div id="wounds-quiz-container"></div>
+     </div>
+    </section><!-- ============================== --> <!-- UNIT 2: SEIZURES                --> <!-- ============================== -->
+    <section id="seizures" class="pt-16">
+     <div class="section-divider mb-10"></div>
+     <div class="flex items-center gap-4 mb-8">
+      <div class="text-5xl">
+       ⚡
+      </div>
+      <div><span class="severity-badge severity-medium mb-1">Unit 2</span>
+       <h2 class="font-display text-3xl md:text-4xl font-black" style="color: var(--text-color);">Seizures</h2>
+      </div>
+     </div>
+     <div class="info-card rounded-xl p-5 mb-8">
+      <h3 class="font-bold text-lg mb-3" style="color: var(--primary-color);">🎯 Learning Objective</h3>
+      <ul class="space-y-2 text-sm" style="color: var(--text-color);">
+       <li>✅ Identify how to administer first aid to a casualty experiencing a seizure</li>
+      </ul>
+     </div>
+     <h3 class="font-display text-2xl font-bold mb-5" style="color: var(--text-color);">What Is a Seizure?</h3>
+     <p class="mb-4 text-sm leading-relaxed" style="color: var(--text-color);">A seizure happens when there is a sudden burst of abnormal electrical activity in the brain. This can cause uncontrollable shaking (convulsions), changes in behaviour, movements, feelings, or levels of consciousness. Seizures can be caused by epilepsy, head injury, high temperature in children (febrile seizures), poisoning, or low blood sugar.</p>
+     <h3 class="font-display text-2xl font-bold mb-5 mt-8" style="color: var(--text-color);">Recognising a Seizure</h3>
+     <div class="grid md:grid-cols-2 gap-4 mb-8">
+      <div class="unit-card rounded-xl p-5">
+       <h4 class="font-bold mb-3" style="color: var(--primary-color);">Signs to Look For</h4>
+       <div class="text-sm space-y-2" style="color: var(--text-color);">
+        <div>
+         🔹 Sudden loss of consciousness and falling to the ground
+        </div>
+        <div>
+         🔹 Rigid/stiff body followed by jerking movements
+        </div>
+        <div>
+         🔹 Clenched jaw or grinding teeth
+        </div>
+        <div>
+         🔹 Possible loss of bladder or bowel control
+        </div>
+        <div>
+         🔹 Noisy or difficult breathing
+        </div>
+        <div>
+         🔹 Possible blue tinge around the lips (cyanosis)
+        </div>
+       </div>
+      </div>
+      <div class="unit-card rounded-xl p-5">
+       <h4 class="font-bold mb-3" style="color: var(--primary-color);">After the Seizure</h4>
+       <div class="text-sm space-y-2" style="color: var(--text-color);">
+        <div>
+         🔹 Casualty may be confused or drowsy
+        </div>
+        <div>
+         🔹 May not remember the seizure
+        </div>
+        <div>
+         🔹 May feel tired and need to sleep
+        </div>
+        <div>
+         🔹 May have a headache
+        </div>
+        <div>
+         🔹 Recovery can take minutes to hours
+        </div>
+       </div>
+      </div>
+     </div>
+     <h3 class="font-display text-2xl font-bold mb-5" style="color: var(--text-color);">How to Help During a Seizure</h3>
+     <div class="warning-card rounded-xl p-5 mb-6">
+      <p class="font-bold text-sm mb-2" style="color: var(--primary-color);">⚠️ NEVER restrain the person or put anything in their mouth</p>
+      <p class="text-sm" style="color: var(--text-color);">Attempting to hold the person down can cause injury. The myth of "swallowing the tongue" is false — it is physically impossible.</p>
+     </div>
+     <div class="space-y-4 mb-8">
+      <div class="flex gap-4 items-start">
+       <div class="step-number">
+        1
+       </div>
+       <div>
+        <h4 class="font-bold mb-1">Protect from Injury</h4>
+        <p class="text-sm" style="color: var(--text-color);">Clear away any objects that could cause harm (furniture, sharp items). If possible, cushion the head with something soft like a folded jacket. Do not move the casualty unless they are in immediate danger.</p>
+       </div>
+      </div>
+      <div class="flex gap-4 items-start">
+       <div class="step-number">
+        2
+       </div>
+       <div>
+        <h4 class="font-bold mb-1">Note the Time</h4>
+        <p class="text-sm" style="color: var(--text-color);">Time how long the seizure lasts. This information is vital for paramedics. If the seizure lasts longer than 5 minutes, call 999 immediately.</p>
+       </div>
+      </div>
+      <div class="flex gap-4 items-start">
+       <div class="step-number">
+        3
+       </div>
+       <div>
+        <h4 class="font-bold mb-1">Once Convulsions Stop</h4>
+        <p class="text-sm" style="color: var(--text-color);">Place the casualty in the <strong>recovery position</strong> to keep their airway clear. Check their breathing. Stay with them and reassure them as they regain consciousness. Provide a calm, quiet environment.</p>
+       </div>
+      </div>
+      <div class="flex gap-4 items-start">
+       <div class="step-number">
+        4
+       </div>
+       <div>
+        <h4 class="font-bold mb-1">Call 999 If…</h4>
+        <p class="text-sm" style="color: var(--text-color);">The seizure lasts more than 5 minutes, they don't regain consciousness, it's their first seizure, they have another seizure shortly after, they are injured, or they have difficulty breathing after the seizure stops.</p>
+       </div>
+      </div>
+     </div><!-- Quiz: Seizures -->
+     <div class="unit-card rounded-xl p-6 mb-6" id="quiz-seizures">
+      <h3 class="font-display text-xl font-bold mb-2" style="color: var(--primary-color);">🧠 Scenario Quiz — Seizures</h3>
+      <p class="text-sm mb-6" style="color: var(--text-color);">Test your knowledge with these scenarios.</p>
+      <div id="seizures-quiz-container"></div>
+     </div>
+    </section><!-- ============================== --> <!-- UNIT 3: MINOR BURNS & SCALDS    --> <!-- ============================== -->
+    <section id="burns" class="pt-16">
+     <div class="section-divider mb-10"></div>
+     <div class="flex items-center gap-4 mb-8">
+      <div class="text-5xl">
+       🔥
+      </div>
+      <div><span class="severity-badge severity-medium mb-1">Unit 3</span>
+       <h2 class="font-display text-3xl md:text-4xl font-black" style="color: var(--text-color);">Minor Burns &amp; Scalds</h2>
+      </div>
+     </div>
+     <div class="info-card rounded-xl p-5 mb-8">
+      <h3 class="font-bold text-lg mb-3" style="color: var(--primary-color);">🎯 Learning Objective</h3>
+      <ul class="space-y-2 text-sm" style="color: var(--text-color);">
+       <li>✅ Identify how to administer first aid to a casualty with minor burns and scalds</li>
+      </ul>
+     </div>
+     <h3 class="font-display text-2xl font-bold mb-5" style="color: var(--text-color);">Understanding Burns &amp; Scalds</h3>
+     <p class="mb-4 text-sm leading-relaxed" style="color: var(--text-color);">A <strong>burn</strong> is caused by dry heat (flames, hot objects, friction, sunburn). A <strong>scald</strong> is caused by wet heat (steam, hot liquids). Both damage the skin and surrounding tissue. Minor (superficial) burns affect only the outer layer of skin (epidermis) and are characterised by redness, swelling, and pain.</p>
+     <div class="grid md:grid-cols-3 gap-4 mb-8">
+      <div class="unit-card rounded-xl p-5">
+       <h4 class="font-bold mb-3" style="color: #059669;">Superficial Burns</h4>
+       <p class="text-sm" style="color: var(--text-color);">The outer layer of skin is burnt causing redness, tenderness and inflammation. The skin is not broken or blistered.</p>
+      </div>
+      <div class="unit-card rounded-xl p-5">
+       <h4 class="font-bold mb-3" style="color: #d97706;">Partial Thickness Burns</h4>
+       <p class="text-sm" style="color: var(--text-color);">The outer layer of the skin is burnt and broken, causing blistering, swelling, pain and rawness.</p>
+      </div>
+      <div class="unit-card rounded-xl p-5">
+       <h4 class="font-bold mb-3" style="color: var(--primary-color);">Full Thickness Burns</h4>
+       <p class="text-sm" style="color: var(--text-color);">All the layers of skin have been damaged causing the skin to look pale, charred and waxy with fatty deposits. There may also be nerve damage.</p>
+      </div>
+     </div>
+     <div class="unit-card rounded-xl p-5 mb-8">
+      <h4 class="font-bold mb-3" style="color: var(--primary-color);">When to Seek Medical Help</h4>
+      <div class="text-sm space-y-2" style="color: var(--text-color);">
+       <div>
+        🔹 Burn is larger than the casualty's palm
+       </div>
+       <div>
+        🔹 Burns to the face, hands, feet, or genitals
+       </div>
+       <div>
+        🔹 Burn wraps around a limb
+       </div>
+       <div>
+        🔹 Burns with blistering (partial thickness)
+       </div>
+       <div>
+        🔹 Chemical or electrical burns (always 999)
+       </div>
+      </div>
+     </div>
+     <h3 class="font-display text-2xl font-bold mb-5" style="color: var(--text-color);">Treating Minor Burns &amp; Scalds</h3>
+     <div class="space-y-4 mb-8">
+      <div class="flex gap-4 items-start">
+       <div class="step-number">
+        1
+       </div>
+       <div>
+        <h4 class="font-bold mb-1">Cool the Burn Immediately</h4>
+        <p class="text-sm" style="color: var(--text-color);">Hold the burn under cool (not ice-cold) running water for a minimum of <strong>20 minutes</strong>. This is the single most important first aid step. Start cooling as soon as possible — cooling is effective up to 3 hours after the burn occurred.</p>
+       </div>
+      </div>
+      <div class="flex gap-4 items-start">
+       <div class="step-number">
+        2
+       </div>
+       <div>
+        <h4 class="font-bold mb-1">Remove Clothing &amp; Jewellery</h4>
+        <p class="text-sm" style="color: var(--text-color);">Carefully remove clothing and jewellery near the burn <strong>before swelling starts</strong> — but only if they are not stuck to the skin. Never pull clothing that is adhered to the burn.</p>
+       </div>
+      </div>
+      <div class="flex gap-4 items-start">
+       <div class="step-number">
+        3
+       </div>
+       <div>
+        <h4 class="font-bold mb-1">Cover the Burn</h4>
+        <p class="text-sm" style="color: var(--text-color);">After cooling, cover with cling film lengthways (not wrapped around) or a clean, non-fluffy material. This helps prevent infection while allowing medical professionals to see the burn.</p>
+       </div>
+      </div>
+     </div>
+     <div class="warning-card rounded-xl p-5 mb-8">
+      <p class="font-bold text-sm mb-2" style="color: var(--primary-color);">⚠️ DO NOT:</p>
+      <div class="text-sm space-y-1" style="color: var(--text-color);">
+       <div>
+        ❌ Apply ice, iced water, creams, butter, or toothpaste
+       </div>
+       <div>
+        ❌ Burst any blisters — this increases risk of infection
+       </div>
+       <div>
+        ❌ Use adhesive dressings (plasters) directly on the burn
+       </div>
+       <div>
+        ❌ Remove clothing stuck to the skin
+       </div>
+      </div>
+     </div><!-- Quiz: Burns -->
+     <div class="unit-card rounded-xl p-6 mb-6" id="quiz-burns">
+      <h3 class="font-display text-xl font-bold mb-2" style="color: var(--primary-color);">🧠 Scenario Quiz — Burns &amp; Scalds</h3>
+      <p class="text-sm mb-6" style="color: var(--text-color);">Test your knowledge with these scenarios.</p>
+      <div id="burns-quiz-container"></div>
+     </div>
+    </section><!-- ============================== --> <!-- UNIT 4: FOREIGN OBJECTS         --> <!-- ============================== -->
+    <section id="foreign" class="pt-16">
+     <div class="section-divider mb-10"></div>
+     <div class="flex items-center gap-4 mb-8">
+      <div class="text-5xl">
+       🔍
+      </div>
+      <div><span class="severity-badge severity-low mb-1">Unit 4</span>
+       <h2 class="font-display text-3xl md:text-4xl font-black" style="color: var(--text-color);">Foreign Objects — Splinters</h2>
+      </div>
+     </div>
+     <div class="info-card rounded-xl p-5 mb-8">
+      <h3 class="font-bold text-lg mb-3" style="color: var(--primary-color);">🎯 Learning Objective</h3>
+      <ul class="space-y-2 text-sm" style="color: var(--text-color);">
+       <li>✅ Identify how to administer first aid to a casualty with small splinters</li>
+      </ul>
+     </div>
+     <h3 class="font-display text-2xl font-bold mb-5" style="color: var(--text-color);">What Is a Splinter?</h3>
+     <p class="mb-4 text-sm leading-relaxed" style="color: var(--text-color);">A splinter is a small fragment of material — usually wood, glass, or metal — that becomes embedded under the skin. Splinters are common workplace injuries, especially in construction, carpentry, catering, and outdoor environments. While most are minor, they can cause infection if not properly removed.</p>
+     <h3 class="font-display text-2xl font-bold mb-5 mt-8" style="color: var(--text-color);">Removing a Small Splinter</h3>
+     <div class="space-y-4 mb-8">
+      <div class="flex gap-4 items-start">
+       <div class="step-number">
+        1
+       </div>
+       <div>
+        <h4 class="font-bold mb-1">Clean the Area</h4>
+        <p class="text-sm" style="color: var(--text-color);">Wash your hands and the area around the splinter with warm soapy water. This reduces the risk of introducing bacteria into the wound during removal.</p>
+       </div>
+      </div>
+      <div class="flex gap-4 items-start">
+       <div class="step-number">
+        2
+       </div>
+       <div>
+        <h4 class="font-bold mb-1">Sterilise Tweezers</h4>
+        <p class="text-sm" style="color: var(--text-color);">Clean the tips of fine-pointed tweezers with an alcohol wipe or antiseptic solution. This prevents infection during the removal process.</p>
+       </div>
+      </div>
+      <div class="flex gap-4 items-start">
+       <div class="step-number">
+        3
+       </div>
+       <div>
+        <h4 class="font-bold mb-1">Grasp &amp; Remove</h4>
+        <p class="text-sm" style="color: var(--text-color);">Using the tweezers, grip the splinter as close to the skin surface as possible. Pull it out gently and firmly in the <strong>same direction it entered</strong>. Do not squeeze the surrounding skin as this can push the splinter deeper.</p>
+       </div>
+      </div>
+      <div class="flex gap-4 items-start">
+       <div class="step-number">
+        4
+       </div>
+       <div>
+        <h4 class="font-bold mb-1">Clean &amp; Cover</h4>
+        <p class="text-sm" style="color: var(--text-color);">Once removed, clean the area again with warm soapy water. Apply a small sterile adhesive dressing (plaster) to protect the wound from dirt and bacteria.</p>
+       </div>
+      </div>
+      <div class="flex gap-4 items-start">
+       <div class="step-number">
+        5
+       </div>
+       <div>
+        <h4 class="font-bold mb-1">Monitor for Infection</h4>
+        <p class="text-sm" style="color: var(--text-color);">Over the next few days, watch for signs of infection: increasing redness, swelling, warmth, pain, or pus. If any of these develop, advise the casualty to seek medical attention.</p>
+       </div>
+      </div>
+     </div>
+     <div class="warning-card rounded-xl p-5 mb-8">
+      <p class="font-bold text-sm mb-2" style="color: var(--primary-color);">⚠️ DO NOT Attempt Removal If:</p>
+      <div class="text-sm space-y-1" style="color: var(--text-color);">
+       <div>
+        ❌ The splinter is deeply embedded or not visible
+       </div>
+       <div>
+        ❌ It is made of glass or metal that may shatter
+       </div>
+       <div>
+        ❌ It is located in or near the eye
+       </div>
+       <div>
+        ❌ The area is already showing signs of infection
+       </div>
+       <div>
+        ➡️ In any of these cases, seek professional medical help
+       </div>
+      </div>
+     </div>
+     <h3 class="font-display text-2xl font-bold mb-5" style="color: var(--text-color);">Other Foreign Objects</h3>
+     <div class="space-y-4 mb-8">
+      <div class="flex gap-4 items-start">
+       <div class="step-number">
+        1
+       </div>
+       <div>
+        <h4 class="font-bold mb-1">Nose</h4>
+        <p class="text-sm" style="color: var(--text-color);">Do not attempt to remove the object. Send the casualty to hospital for professional removal.</p>
+       </div>
+      </div>
+      <div class="flex gap-4 items-start">
+       <div class="step-number">
+        2
+       </div>
+       <div>
+        <h4 class="font-bold mb-1">Ears</h4>
+        <p class="text-sm mb-2" style="color: var(--text-color);">Do not attempt to remove the object unless it's a living object such as an insect. If it is an insect, try flooding the ear with tepid water to remove it.</p>
+        <p class="text-sm" style="color: var(--text-color);">If this doesn't work, cover the ear with a sterile dressing and send the casualty to hospital.</p>
+       </div>
+      </div>
+      <div class="flex gap-4 items-start">
+       <div class="step-number">
+        3
+       </div>
+       <div>
+        <h4 class="font-bold mb-1">Swallowed</h4>
+        <p class="text-sm mb-2" style="color: var(--text-color);">Seek medical attention as soon as possible.</p>
+        <p class="text-sm" style="color: var(--text-color);">If the object becomes stuck in the respiratory tract, follow the choking procedure.</p>
+       </div>
+      </div>
+     </div><!-- Quiz: Foreign Objects -->
+     <div class="unit-card rounded-xl p-6 mb-6" id="quiz-foreign">
+      <h3 class="font-display text-xl font-bold mb-2" style="color: var(--primary-color);">🧠 Scenario Quiz — Foreign Objects</h3>
+      <p class="text-sm mb-6" style="color: var(--text-color);">Test your knowledge with these scenarios.</p>
+      <div id="foreign-quiz-container"></div>
+     </div>
+    </section><!-- ============================== --> <!-- FINAL SCORE                     --> <!-- ============================== -->
+    <section id="final-score" class="pt-16 pb-10">
+     <div class="section-divider mb-10"></div>
+     <div class="unit-card rounded-2xl p-8 md:p-12 text-center">
+      <h2 class="font-display text-3xl md:text-4xl font-black mb-4" style="color: var(--text-color);">📊 Your Results</h2>
+      <p class="text-sm mb-8" style="color: var(--text-color);">Complete all quizzes above to see your total score.</p>
+      <div class="flex justify-center mb-6">
+       <div class="score-circle" id="score-display"><span id="score-number" class="text-3xl font-black" style="color: var(--primary-color);">0</span> <span class="text-xs" style="color: var(--text-color);" id="score-total">/ 0</span>
+       </div>
+      </div>
+      <div class="progress-bar max-w-md mx-auto mb-4">
+       <div class="progress-fill" id="score-bar" style="width: 0%;"></div>
+      </div>
+      <p id="score-message" class="font-semibold text-lg mt-4" style="color: var(--primary-color);">Answer all questions to get your final score!</p><!-- Per-unit breakdown -->
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-3 mt-8 max-w-2xl mx-auto" id="unit-scores">
+       <div class="rounded-lg p-3" style="background: var(--secondary-color); border: 2px solid var(--primary-color);">
+        <div class="text-2xl mb-1">
+         🩸
+        </div>
+        <div class="text-xs font-semibold" style="color: var(--text-color);">
+         Wounds
+        </div>
+        <div class="font-bold" id="score-wounds" style="color: var(--text-color);">
+         —
+        </div>
+       </div>
+       <div class="rounded-lg p-3" style="background: var(--secondary-color); border: 2px solid var(--primary-color);">
+        <div class="text-2xl mb-1">
+         ⚡
+        </div>
+        <div class="text-xs font-semibold" style="color: var(--text-color);">
+         Seizures
+        </div>
+        <div class="font-bold" id="score-seizures" style="color: var(--text-color);">
+         —
+        </div>
+       </div>
+       <div class="rounded-lg p-3" style="background: var(--secondary-color); border: 2px solid var(--primary-color);">
+        <div class="text-2xl mb-1">
+         🔥
+        </div>
+        <div class="text-xs font-semibold" style="color: var(--text-color);">
+         Burns
+        </div>
+        <div class="font-bold" id="score-burns" style="color: var(--text-color);">
+         —
+        </div>
+       </div>
+       <div class="rounded-lg p-3" style="background: var(--secondary-color); border: 2px solid var(--primary-color);">
+        <div class="text-2xl mb-1">
+         🔍
+        </div>
+        <div class="text-xs font-semibold" style="color: var(--text-color);">
+         Foreign Objects
+        </div>
+        <div class="font-bold" id="score-foreign" style="color: var(--text-color);">
+         —
+        </div>
+       </div>
+      </div><button id="reset-btn" class="mt-8 px-8 py-3 rounded-xl font-bold text-sm cursor-pointer border-none" style="background: var(--primary-color); color: white; display: none;" onclick="resetAllQuizzes()">🔄 Retake All Quizzes</button>
+     </div>
+    </section>
+   </main><!-- Back to top button --> <button class="back-to-top" id="back-to-top" aria-label="Back to top" onclick="document.getElementById('app-wrapper').scrollTo({top:0,behavior:'smooth'});">
+    <svg width="20" height="20" viewbox="0 0 20 20" fill="none">
+     <path d="M10 16V4M10 4L4 10M10 4L16 10" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" />
+    </svg></button>
+   <footer class="w-full py-6 text-center text-xs" style="color: rgba(0, 0, 0, 0.3); border-top: 2px solid var(--secondary-color);">
+    First Aid at Work — SCQF Level 6 Training Resource
+   </footer>
+  </div>
+  <script>
+    // ========================================
+    // QUIZ DATA
+    // ========================================
+    const quizData = {
+      wounds: [
+        {
+          scenario: "A colleague in the warehouse has cut their hand on a sharp piece of packaging. Blood is oozing slowly from a shallow graze on their palm. What should you do first?",
+          options: [
+            { text: "Apply a tourniquet above the wrist", correct: false, feedback: "A tourniquet is for life-threatening arterial bleeding only. This is a minor capillary bleed and does not require such an extreme measure." },
+            { text: "Rinse the wound under clean running water and apply a sterile dressing", correct: true, feedback: "Correct! For minor cuts and grazes, clean the wound under running water and cover with a sterile adhesive dressing to prevent infection." },
+            { text: "Apply antiseptic cream generously and wrap with bandage", correct: false, feedback: "Antiseptic creams can damage tissue and slow healing. The recommended approach is to clean with running water only, then apply a sterile dressing." },
+            { text: "Leave it uncovered so it can dry out and heal naturally", correct: false, feedback: "Leaving a wound uncovered exposes it to dirt and bacteria, increasing the risk of infection. It should be covered with a sterile dressing." }
+          ]
+        },
+        {
+          scenario: "A kitchen worker has accidentally sliced their forearm deeply with a knife. Blood is spurting out in rhythmic pulses and is bright red. What type of bleeding is this, and what is your immediate priority?",
+          options: [
+            { text: "Venous bleeding — elevate the arm and wait for it to stop", correct: false, feedback: "This is not venous bleeding. Venous blood flows steadily and is dark red. Blood that spurts in rhythm with the heartbeat and is bright red indicates arterial bleeding, which requires immediate direct pressure." },
+            { text: "Capillary bleeding — clean it under water for 10 minutes", correct: false, feedback: "Capillary bleeding oozes slowly. Spurting bright red blood that pulses with the heartbeat is arterial bleeding — the most dangerous kind. Direct pressure is needed immediately." },
+            { text: "Arterial bleeding — apply firm direct pressure immediately and call 999", correct: true, feedback: "Correct! Bright red blood spurting in rhythm with the heartbeat is arterial bleeding. Apply firm direct pressure with a sterile dressing and call 999 immediately." },
+            { text: "Arterial bleeding — pour cold water over it to slow the flow", correct: false, feedback: "While you correctly identified arterial bleeding, cold water will not control it. Firm, direct pressure on the wound is the priority. Call 999 immediately." }
+          ]
+        },
+        {
+          scenario: "You are treating a colleague with a deep wound on their leg. You've applied a dressing and pressure, but blood has soaked through the bandage. What should you do?",
+          options: [
+            { text: "Remove the blood-soaked dressing and apply a fresh one", correct: false, feedback: "Never remove the original dressing — doing so can disturb any blood clots forming. This can restart or worsen the bleeding." },
+            { text: "Apply another dressing on top of the existing one and maintain pressure", correct: true, feedback: "Correct! If blood soaks through, apply another dressing directly on top of the original. Removing the first dressing would disturb clot formation." },
+            { text: "Release the pressure briefly to let blood flow restore", correct: false, feedback: "Releasing pressure will allow bleeding to continue or worsen. Maintaining constant, firm pressure is essential to help the blood clot." },
+            { text: "Tightly tie a shoelace above the wound as a tourniquet", correct: false, feedback: "Improvised tourniquets can cause serious tissue damage. The correct action is to add another dressing on top and maintain direct pressure while waiting for emergency services." }
+          ]
+        }
+      ],
+      seizures: [
+        {
+          scenario: "During a team meeting, a colleague suddenly falls to the ground and begins jerking uncontrollably. Their body is rigid and they are making gurgling sounds. What is the FIRST thing you should do?",
+          options: [
+            { text: "Hold them down firmly to stop the jerking movements", correct: false, feedback: "Never restrain someone having a seizure — it can cause injury to them and to you. Let the seizure run its course while protecting them from harm." },
+            { text: "Place a pen between their teeth to stop them biting their tongue", correct: false, feedback: "Never put anything in the mouth of someone having a seizure. This is a dangerous myth — it can break teeth, cause choking, or injure you." },
+            { text: "Clear the area around them of any objects that could cause injury and note the time", correct: true, feedback: "Correct! Protect them from injury by clearing the space. Note the time so you know how long the seizure lasts — this is critical information for paramedics." },
+            { text: "Splash cold water on their face to try to bring them round", correct: false, feedback: "Splashing water will not stop a seizure and could cause choking or aspiration. Focus on protecting them from injury and timing the seizure." }
+          ]
+        },
+        {
+          scenario: "A seizure has been going on for 6 minutes. The person is still convulsing. What should you do?",
+          options: [
+            { text: "Continue waiting — most seizures stop on their own within 10 minutes", correct: false, feedback: "While many seizures are brief, a seizure lasting more than 5 minutes is a medical emergency (status epilepticus). Call 999 immediately." },
+            { text: "Try to give them water to drink to help them recover", correct: false, feedback: "Never try to give food or drink to someone having a seizure — they cannot swallow and could choke. Call 999 as the seizure has exceeded 5 minutes." },
+            { text: "Call 999 immediately — a seizure lasting over 5 minutes is a medical emergency", correct: true, feedback: "Correct! A seizure lasting more than 5 minutes requires emergency medical help. This is known as status epilepticus and can be life-threatening." },
+            { text: "Roll them onto their back and begin CPR", correct: false, feedback: "CPR is not appropriate during a seizure — the person's heart is still beating. Place them in the recovery position once the seizure stops, and call 999 as it has exceeded 5 minutes." }
+          ]
+        },
+        {
+          scenario: "A colleague has just recovered from a seizure. They are confused and drowsy. They say they feel fine and want to go back to work immediately. What should you advise?",
+          options: [
+            { text: "Let them return to work — they seem fine and know their own body", correct: false, feedback: "Post-seizure confusion is common. The person may feel fine but isn't yet fully recovered. They need time to rest and should be monitored." },
+            { text: "Keep them resting in a calm, quiet place and monitor them. Do not let them return to work until fully recovered", correct: true, feedback: "Correct! After a seizure, the person may be confused and not thinking clearly. Keep them in a safe, calm environment, monitor their condition, and do not let them return to work or drive until fully recovered." },
+            { text: "Give them a strong coffee to help them wake up fully", correct: false, feedback: "Caffeine is not appropriate — the person needs rest, not stimulation. Allow them time to recover in a calm, quiet environment." },
+            { text: "Send them home in a taxi right away so they can sleep it off", correct: false, feedback: "The person may still be disoriented and needs monitoring. They shouldn't be left alone immediately after a seizure. Keep them resting in a safe place first." }
+          ]
+        }
+      ],
+      burns: [
+        {
+          scenario: "A colleague has spilled boiling water from the kettle onto their forearm. The area is red, painful, and starting to swell. What is the most important thing to do first?",
+          options: [
+            { text: "Apply butter to the burn to soothe it and prevent blistering", correct: false, feedback: "Never apply butter, creams, or grease to a burn. These trap heat in the skin and can worsen the injury. Cool running water is the correct treatment." },
+            { text: "Hold the burn under cool running water for at least 20 minutes", correct: true, feedback: "Correct! Cooling under running water for a minimum of 20 minutes is the single most important first aid step for burns. It reduces pain, swelling, and depth of injury." },
+            { text: "Apply ice directly to the burn to cool it down as fast as possible", correct: false, feedback: "Never apply ice to a burn — it can cause frostbite and further tissue damage. Use cool (not ice-cold) running water for 20 minutes." },
+            { text: "Quickly wrap the burn tightly in cling film to protect it", correct: false, feedback: "Cling film can be used after cooling, but the priority is to cool the burn first for 20 minutes under running water. Covering too early traps heat in." }
+          ]
+        },
+        {
+          scenario: "After cooling a minor burn for 20 minutes, what is the correct way to cover it?",
+          options: [
+            { text: "Wrap cling film tightly around the limb in a spiral", correct: false, feedback: "Cling film should be applied loosely and lengthways — not wrapped tightly around a limb. Tight wrapping can restrict blood flow as the area swells." },
+            { text: "Place a large adhesive plaster directly over the burn", correct: false, feedback: "Adhesive dressings (plasters) should not be placed directly on burns. The adhesive can stick to the damaged skin and cause pain or further injury on removal." },
+            { text: "Lay cling film loosely over the burn lengthways, or cover with a clean non-fluffy material", correct: true, feedback: "Correct! Cling film laid lengthways (not wrapped) or a clean, non-fluffy cloth is ideal. It protects the wound while allowing medical staff to assess it easily." },
+            { text: "Leave it uncovered to allow the air to heal it", correct: false, feedback: "Leaving a burn exposed increases the risk of infection. Cover it with cling film laid lengthways or a clean non-fluffy material after cooling." }
+          ]
+        },
+        {
+          scenario: "A colleague has a burn on their hand with blisters starting to form. They ask you to pop the blisters because they feel tight and uncomfortable. What should you do?",
+          options: [
+            { text: "Pop the blisters carefully with a sterilised needle to relieve pressure", correct: false, feedback: "Never burst blisters — they protect the new skin forming underneath. Breaking them dramatically increases the risk of infection." },
+            { text: "Pop them and apply antiseptic cream", correct: false, feedback: "Blisters should never be burst. They act as a natural sterile dressing. Breaking them introduces bacteria and increases infection risk significantly." },
+            { text: "Do not pop the blisters. Continue cooling if needed, cover gently, and advise them to see a healthcare professional", correct: true, feedback: "Correct! Never burst blisters. They protect the healing skin beneath. Cover gently and advise medical attention — blistering indicates a deeper (partial thickness) burn." },
+            { text: "Apply ice to the blisters to reduce the swelling", correct: false, feedback: "Ice should never be applied to burns or blisters. It can cause frostbite and further damage. Leave the blisters intact and seek medical advice." }
+          ]
+        }
+      ],
+      foreign: [
+        {
+          scenario: "A colleague has a small wooden splinter visibly sticking out of their finger after handling timber. They ask for your help. What should you do first?",
+          options: [
+            { text: "Grip the splinter with your fingernails and yank it out quickly", correct: false, feedback: "Using your fingernails risks introducing bacteria and could break the splinter, making it harder to remove. Use clean, sterilised tweezers instead." },
+            { text: "Apply gloves, then use sterile tweezers to remove the splinter", correct: true, feedback: "Correct! Always clean the area and your hands first. Sterilise the tweezers with an alcohol wipe to prevent infection before attempting removal." },
+            { text: "Leave the splinter in place — the body will push it out naturally over time", correct: false, feedback: "While the body sometimes expels splinters, leaving them in risks infection. If visible and accessible, it should be removed using proper technique." },
+            { text: "Use a sewing needle to dig the splinter out of the skin", correct: false, feedback: "Digging with a needle can push the splinter deeper, cause tissue damage, and increase infection risk. Use sterilised tweezers to grip and pull gently." }
+          ]
+        },
+        {
+          scenario: "Once you have safely removed the splinter, what should you do next?",
+          options: [
+            { text: "Apply an ice pack to numb the area and reduce swelling", correct: false, feedback: "While ice can reduce swelling, the priority after removal is to clean the wound and prevent infection. Ice is not necessary for a minor splinter wound." },
+            { text: "Clean the area with an anti-bacterial wipe and apply a dressing", correct: true, feedback: "Correct! After removal, clean the area with an antiseptic wipe to remove any debris and prevent infection, then cover with a sterile dressing." },
+            { text: "Immediately submerge the finger in hot water for 5 minutes", correct: false, feedback: "Hot water can increase pain and swelling. The area should be cleaned with an anti-bacterial wipe and then covered with a sterile dressing to protect the wound." },
+            { text: "Leave it completely uncovered and allow it to air dry naturally", correct: false, feedback: "Leaving the wound uncovered exposes it to dirt and bacteria, increasing infection risk. Always cover with a sterile dressing after cleaning." }
+          ]
+        },
+        {
+          scenario: "Your friend comes to you with a piece of Lego stuck up their nose. What do you do?",
+          options: [
+            { text: "Try to remove it with tweezers or by having them blow their nose forcefully", correct: false, feedback: "Attempting to remove objects from the nose can push them deeper and damage the nasal tissue. Professional medical removal is needed." },
+            { text: "Do not attempt removal — this requires professional medical help. Refer them to hospital or their GP", correct: true, feedback: "Correct! Never attempt to remove foreign objects from the nose. Doing so can cause injury and push the object deeper. Professional medical removal is required." },
+            { text: "Apply warm compresses to the nose to encourage the object to come out", correct: false, feedback: "Warm compresses won't help remove nasal foreign objects and may delay necessary medical treatment. Professional removal is needed." },
+            { text: "Have them inhale strongly to try to dislodge it into the throat", correct: false, feedback: "This is dangerous — it could lodge the object further or cause it to be swallowed. Seek professional medical help for safe removal." }
+          ]
+        }
+      ]
+    };
+
+    // ========================================
+    // QUIZ ENGINE
+    // ========================================
+    const unitScores = { wounds: null, seizures: null, burns: null, foreign: null };
+    const unitAnswered = { wounds: 0, seizures: 0, burns: 0, foreign: 0 };
+
+    function buildQuiz(unitKey) {
+      const container = document.getElementById(`${unitKey}-quiz-container`);
+      if (!container) return;
+      const questions = quizData[unitKey];
+      container.innerHTML = '';
+
+      questions.forEach((q, qIndex) => {
+        const qDiv = document.createElement('div');
+        qDiv.className = 'mb-8';
+        qDiv.id = `${unitKey}-q${qIndex}`;
+
+        const scenarioHtml = `
+          <div class="flex items-start gap-3 mb-4">
+            <span class="text-xl mt-0.5">📋</span>
+            <div>
+              <span class="text-xs font-bold tracking-widest" style="color: var(--primary-color);">SCENARIO ${qIndex + 1}</span>
+              <p class="text-sm mt-1 leading-relaxed" style="color: var(--text-color);">${q.scenario}</p>
+            </div>
+          </div>
+        `;
+
+        let optionsHtml = '<div class="space-y-3 ml-8">';
+        const labels = ['A', 'B', 'C', 'D'];
+        q.options.forEach((opt, oIndex) => {
+          optionsHtml += `
+            <button class="quiz-option w-full text-left rounded-xl p-4 flex items-start gap-3"
+                    id="${unitKey}-q${qIndex}-o${oIndex}"
+                    onclick="handleAnswer('${unitKey}', ${qIndex}, ${oIndex})">
+              <span class="font-bold text-sm min-w-[24px]" style="color: var(--primary-color);">${labels[oIndex]}</span>
+              <span class="text-sm">${opt.text}</span>
+            </button>
+          `;
+        });
+        optionsHtml += '</div>';
+
+        const feedbackHtml = `<div id="${unitKey}-q${qIndex}-feedback" class="ml-8 mt-3" style="display:none;"></div>`;
+
+        qDiv.innerHTML = scenarioHtml + optionsHtml + feedbackHtml;
+        container.appendChild(qDiv);
+      });
+    }
+
+    function handleAnswer(unitKey, qIndex, oIndex) {
+      const questions = quizData[unitKey];
+      const question = questions[qIndex];
+      const selected = question.options[oIndex];
+
+      // Mark all options as selected (disable further clicks)
+      question.options.forEach((_, i) => {
+        const btn = document.getElementById(`${unitKey}-q${qIndex}-o${i}`);
+        if (btn) btn.classList.add('selected');
+      });
+
+      const selectedBtn = document.getElementById(`${unitKey}-q${qIndex}-o${oIndex}`);
+
+      if (selected.correct) {
+        selectedBtn.classList.add('correct');
+        if (unitScores[unitKey] === null) unitScores[unitKey] = 0;
+        unitScores[unitKey]++;
+      } else {
+        selectedBtn.classList.add('incorrect');
+        // Highlight the correct answer
+        question.options.forEach((opt, i) => {
+          if (opt.correct) {
+            document.getElementById(`${unitKey}-q${qIndex}-o${i}`).classList.add('correct');
+          }
+        });
+      }
+
+      // Show feedback
+      const feedbackDiv = document.getElementById(`${unitKey}-q${qIndex}-feedback`);
+      if (feedbackDiv) {
+        const bgColor = selected.correct ? 'rgba(34, 197, 94, 0.1)' : 'rgba(230, 0, 0, 0.1)';
+        const borderColor = selected.correct ? '#22c55e' : '#e60000';
+        const icon = selected.correct ? '✅' : '❌';
+        feedbackDiv.innerHTML = `
+          <div class="rounded-lg p-4 text-sm" style="background: ${bgColor}; border-left: 3px solid ${borderColor};">
+            <span class="font-bold" style="color: var(--text-color);">${icon} ${selected.correct ? 'Correct!' : 'Not quite.'}</span>
+            <p class="mt-1" style="color: var(--text-color);">${selected.feedback}</p>
+          </div>
+        `;
+        feedbackDiv.style.display = 'block';
+      }
+
+      unitAnswered[unitKey]++;
+      if (unitScores[unitKey] === null) unitScores[unitKey] = 0;
+      updateFinalScore();
+    }
+
+    function updateFinalScore() {
+      const totalQuestions = Object.values(quizData).reduce((sum, qs) => sum + qs.length, 0);
+      const totalAnswered = Object.values(unitAnswered).reduce((sum, v) => sum + v, 0);
+      const totalCorrect = Object.values(unitScores).reduce((sum, v) => sum + (v || 0), 0);
+
+      document.getElementById('score-number').textContent = totalCorrect;
+      document.getElementById('score-total').textContent = `/ ${totalQuestions}`;
+
+      const pct = totalQuestions > 0 ? (totalCorrect / totalQuestions) * 100 : 0;
+      document.getElementById('score-bar').style.width = pct + '%';
+
+      // Update per-unit scores
+      Object.keys(unitScores).forEach(key => {
+        const el = document.getElementById(`score-${key}`);
+        if (el) {
+          const qCount = quizData[key].length;
+          el.textContent = unitAnswered[key] > 0 ? `${unitScores[key] || 0} / ${qCount}` : '—';
+        }
+      });
+
+      const msg = document.getElementById('score-message');
+      const resetBtn = document.getElementById('reset-btn');
+
+      if (totalAnswered === totalQuestions) {
+        resetBtn.style.display = 'inline-block';
+        if (pct === 100) {
+          msg.textContent = '🎉 Outstanding! Perfect score — you\'re ready to save lives!';
+          msg.style.color = '#22c55e';
+        } else if (pct >= 75) {
+          msg.textContent = '⭐ Great work! Strong knowledge of first aid principles.';
+          msg.style.color = 'var(--primary-color)';
+        } else if (pct >= 50) {
+          msg.textContent = '👍 Good effort! Review the areas you missed and try again.';
+          msg.style.color = '#d97706';
+        } else {
+          msg.textContent = '📚 Keep studying — review the content above and retake the quizzes.';
+          msg.style.color = 'var(--primary-color)';
+        }
+      } else {
+        msg.textContent = `${totalAnswered} of ${totalQuestions} questions answered. Keep going!`;
+        msg.style.color = 'var(--primary-color)';
+        resetBtn.style.display = 'none';
+      }
+    }
+
+    function resetAllQuizzes() {
+      Object.keys(unitScores).forEach(key => {
+        unitScores[key] = null;
+        unitAnswered[key] = 0;
+        buildQuiz(key);
+      });
+      updateFinalScore();
+      document.getElementById('app-wrapper').scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    // ========================================
+    // BACK TO TOP BUTTON
+    // ========================================
+    const appWrapper = document.getElementById('app-wrapper');
+    const backBtn = document.getElementById('back-to-top');
+    appWrapper.addEventListener('scroll', () => {
+      if (appWrapper.scrollTop > 400) {
+        backBtn.classList.add('visible');
+      } else {
+        backBtn.classList.remove('visible');
+      }
+    });
+
+    // ========================================
+    // ELEMENT SDK SETUP
+    // ========================================
+    const defaultConfig = {
+      course_title: 'First Aid at Work',
+      course_subtitle: 'SCQF Level 6 — One Day Course',
+      instructor_name: '',
+      background_color: '#ffffff',
+      surface_color: '#fffef0',
+      text_color: '#000000',
+      primary_color: '#e60000',
+      secondary_color: '#ffcc00',
+      font_family: 'DM Sans',
+      font_size: 14
+    };
+
+    function applyConfig(config) {
+      const c = { ...defaultConfig, ...config };
+
+      // Text content
+      const heroTitle = document.getElementById('hero-title');
+      if (heroTitle) heroTitle.textContent = c.course_title || defaultConfig.course_title;
+
+      const heroSubtitle = document.getElementById('hero-subtitle');
+      if (heroSubtitle) heroSubtitle.textContent = c.course_subtitle || defaultConfig.course_subtitle;
+
+      const heroInstructor = document.getElementById('hero-instructor');
+      if (heroInstructor) {
+        const name = c.instructor_name || defaultConfig.instructor_name;
+        heroInstructor.textContent = name ? `Instructor: ${name}` : '';
+      }
+
+      // Colors
+      document.documentElement.style.setProperty('--bg-color', c.background_color || defaultConfig.background_color);
+      document.documentElement.style.setProperty('--surface-color', c.surface_color || defaultConfig.surface_color);
+      document.documentElement.style.setProperty('--text-color', c.text_color || defaultConfig.text_color);
+      document.documentElement.style.setProperty('--primary-color', c.primary_color || defaultConfig.primary_color);
+      document.documentElement.style.setProperty('--secondary-color', c.secondary_color || defaultConfig.secondary_color);
+
+      document.body.style.background = c.background_color || defaultConfig.background_color;
+      document.body.style.color = c.text_color || defaultConfig.text_color;
+
+      // Font
+      const fontFamily = c.font_family || defaultConfig.font_family;
+      const baseFontStack = `${fontFamily}, 'DM Sans', sans-serif`;
+      document.body.style.fontFamily = baseFontStack;
+
+      // Font size
+      const baseSize = c.font_size || defaultConfig.font_size;
+      document.body.style.fontSize = `${baseSize}px`;
+    }
+
+    if (window.elementSdk) {
+      window.elementSdk.init({
+        defaultConfig,
+        onConfigChange: async (config) => {
+          applyConfig(config);
+        },
+        mapToCapabilities: (config) => ({
+          recolorables: [
+            {
+              get: () => config.background_color || defaultConfig.background_color,
+              set: (v) => { config.background_color = v; window.elementSdk.setConfig({ background_color: v }); }
+            },
+            {
+              get: () => config.surface_color || defaultConfig.surface_color,
+              set: (v) => { config.surface_color = v; window.elementSdk.setConfig({ surface_color: v }); }
+            },
+            {
+              get: () => config.text_color || defaultConfig.text_color,
+              set: (v) => { config.text_color = v; window.elementSdk.setConfig({ text_color: v }); }
+            },
+            {
+              get: () => config.primary_color || defaultConfig.primary_color,
+              set: (v) => { config.primary_color = v; window.elementSdk.setConfig({ primary_color: v }); }
+            },
+            {
+              get: () => config.secondary_color || defaultConfig.secondary_color,
+              set: (v) => { config.secondary_color = v; window.elementSdk.setConfig({ secondary_color: v }); }
+            }
+          ],
+          borderables: [],
+          fontEditable: {
+            get: () => config.font_family || defaultConfig.font_family,
+            set: (v) => { config.font_family = v; window.elementSdk.setConfig({ font_family: v }); }
+          },
+          fontSizeable: {
+            get: () => config.font_size || defaultConfig.font_size,
+            set: (v) => { config.font_size = v; window.elementSdk.setConfig({ font_size: v }); }
+          }
+        }),
+        mapToEditPanelValues: (config) => new Map([
+          ['course_title', config.course_title || defaultConfig.course_title],
+          ['course_subtitle', config.course_subtitle || defaultConfig.course_subtitle],
+          ['instructor_name', config.instructor_name || defaultConfig.instructor_name]
+        ])
+      });
+    }
+
+    // ========================================
+    // INITIALIZE QUIZZES
+    // ========================================
+    // Ensure DOM is ready before building quizzes
+    function initializeQuizzes() {
+      ['wounds', 'seizures', 'burns', 'foreign'].forEach(key => {
+        const container = document.getElementById(`${key}-quiz-container`);
+        if (container) {
+          buildQuiz(key);
+        }
+      });
+      updateFinalScore();
+    }
+
+    // Initialize on load
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', initializeQuizzes);
+    } else {
+      initializeQuizzes();
+    }
+  </script>
+ <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9cbeb502104c412e',t:'MTc3MDc1OTAyMC4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>
